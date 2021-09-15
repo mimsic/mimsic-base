@@ -17,6 +17,7 @@
 
     <modules>
         <module>mimsic-base-common</module>
+        <module>mimsic-base-concurrency</module>
     </modules>
 
     <properties>
@@ -31,6 +32,12 @@
             <dependency>
                 <groupId>com.github.mimsic.base</groupId>
                 <artifactId>mimsic-base-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mimsic.base</groupId>
+                <artifactId>mimsic-base-concurrency</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
