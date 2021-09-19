@@ -18,8 +18,12 @@ public class ObjectUtil {
 
     public static <K, V> Map<K, V> convertToMap(Object object) {
 
-        TypeReference<Map<K, V>> typeRef = new TypeReference<Map<K, V>>() {
-        };
+        return ObjectMapperUtil.convertValue(object, new TypeReference<Map<K, V>>() {
+        });
+    }
+
+    public static <K, V> Map<K, V> convertToMap(Object object, TypeReference<Map<K, V>> typeRef) {
+
         return ObjectMapperUtil.convertValue(object, typeRef);
     }
 

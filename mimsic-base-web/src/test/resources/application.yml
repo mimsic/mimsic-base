@@ -1,0 +1,77 @@
+---
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+security-config:
+  authorization-server:
+    grant-types:
+      - authorization_code
+      - implicit
+      - password
+      - refresh_token
+    scopes:
+      - read
+      - trust
+      - write
+    client: client-id
+    secret: secret
+    access-token-validity: 21600
+    refresh-token-validity: 43200
+  cors:
+    - allowed-origins:
+        - "*"
+      allowed-headers:
+        - "*"
+      allowed-methods:
+        - "*"
+      allowed-path: "/**"
+      allow-credentials: true
+  resource-server:
+    resource-id: base
+    stateless: true
+  token:
+    signing-keystore:
+      alias: server-alias
+      path: "classpath:keystore.p12"
+      password: password
+      type: PKCS12
+    signing-key: 2R-2Jmq4r753
+
+server:
+  port: 18080
+
+server-config:
+  connector-configurer-enabled: false
+  connectors:
+    - scheme: http
+      port: 80
+      redirectPort: 443
+      secure: false
+      sslEnabled: false
+    - scheme: https
+      port: 443
+      redirectPort: 443
+      secure: true
+      sslEnabled: true
+      keystore:
+        alias: server-alias
+        path: "classpath:keystore.p12"
+        password: password
+        type: PKCS12
+  constraints:
+    user-constraint: "CONFIDENTIAL"
+    patterns:
+      - "/*"
+
+websocket-config:
+  allowed-origins:
+    - "http://dev.web.finevotech.com:18079"
+    - "https://dev.web.finevotech.com:18079"
+  container-configurer-enabled: true
+  container:
+    max-binary-message-buffer-size: 16384
+    max-text-message-buffer-size: 16384
+  send-buffer-size-limit: 16384
+  send-time-limit: 3000
