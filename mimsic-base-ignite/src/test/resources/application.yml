@@ -1,0 +1,31 @@
+---
+spring:
+  profiles:
+    active:
+      - ignite
+
+---
+spring:
+  profiles:
+    - ignite
+
+ignite-config:
+  client-mode: false
+  grid-logger: true
+  network-mode: multicast
+  network:
+    aws-s3:
+      bucket-name: bucket-name
+      access-key: aws
+      secret-key: awsSecret
+    multicast:
+      communication:
+        local-port: 47100
+        local-port-range: 20
+      discovery:
+        addresses:
+          - ip: "127.0.0.1"
+            ports: "47500..47520"
+        local-port: 47500
+        local-port-range: 20
+        share-mode: false
