@@ -19,6 +19,7 @@
         <module>mimsic-base-common</module>
         <module>mimsic-base-concurrency</module>
         <module>mimsic-base-ignite</module>
+        <module>mimsic-base-rabbit</module>
     </modules>
 
     <properties>
@@ -45,6 +46,12 @@
             <dependency>
                 <groupId>com.github.mimsic.base</groupId>
                 <artifactId>mimsic-base-ignite</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mimsic.base</groupId>
+                <artifactId>mimsic-base-rabbit</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 

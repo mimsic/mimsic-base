@@ -1,0 +1,71 @@
+---
+spring:
+  profiles:
+    active:
+      - rabbit
+
+---
+spring:
+  profiles:
+    - rabbit
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+#    virtualHost: test
+
+rabbit-config:
+  exchanges:
+    exchange1:
+      auto-delete: false
+      durable: true
+      queues:
+        queue1:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier1
+          routing-key: routing-key1
+        queue2:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier2
+          routing-key: routing-key2
+      type: direct
+    exchange2:
+      auto-delete: false
+      durable: true
+      queues:
+        queue3:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier3
+          routing-key: routing-key3
+        queue4:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier4
+          routing-key: routing-key4
+      type: fanout
+    exchange3:
+      auto-delete: false
+      durable: true
+      queues:
+        queue4:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier5
+          routing-key: routing-key5
+        queue5:
+          auto-delete: false
+          exclusive: false
+          durable: true
+          qualifier: qualifier6
+          routing-key: routing-key6
+      type: topic
