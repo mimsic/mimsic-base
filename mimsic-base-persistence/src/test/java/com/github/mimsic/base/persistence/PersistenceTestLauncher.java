@@ -1,12 +1,12 @@
+package com.github.mimsic.base.persistence;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-        "com.yoda.base.persistence.aop",
-        "com.yoda.base.persistence.config",
-        "com.yoda.base.persistence.model.service",
+        "com.github.mimsic.base.persistence"
 })
 public class PersistenceTestLauncher {
 

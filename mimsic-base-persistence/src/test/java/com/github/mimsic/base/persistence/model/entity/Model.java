@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 @ToString
 @Entity
 @Table(name = "models")
-public class Model {
+public class Model implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

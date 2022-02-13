@@ -39,7 +39,7 @@ public class PersistenceBeanConfigurer implements InitializingBean {
     private String[] entityPackages() {
 
         return new String[]{
-                "com.yoda.base.persistence.model.entity"
+                "com.github.mimsic.base.persistence.model.entity"
         };
     }
 
