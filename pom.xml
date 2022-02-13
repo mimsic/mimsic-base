@@ -19,9 +19,9 @@
         <module>mimsic-base-common</module>
         <module>mimsic-base-concurrency</module>
         <module>mimsic-base-ignite</module>
+        <module>mimsic-base-persistence</module>
         <module>mimsic-base-rabbit</module>
         <module>mimsic-base-web</module>
-        <module>mimsic-base-persistence</module>
     </modules>
 
     <properties>
@@ -66,6 +66,13 @@
                 <groupId>com.github.mimsic.base</groupId>
                 <artifactId>mimsic-base-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!--TODO: h2 version must not be inherited from spring boot parent (incompatibility with ignite)-->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.197</version>
             </dependency>
 
             <dependency>
