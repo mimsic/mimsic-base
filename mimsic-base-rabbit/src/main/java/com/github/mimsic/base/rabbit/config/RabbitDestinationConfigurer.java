@@ -26,11 +26,15 @@ public class RabbitDestinationConfigurer implements InitializingBean {
     private final Map<String, BiFunction<String, RabbitConfig.ExchangeInfo, Exchange>> functions = new HashMap<>();
     private final Map<String, RabbitDestination> destinations = new HashMap<>();
 
-    @Autowired
     private AmqpAdmin amqpAdmin;
 
-    @Autowired
     private RabbitConfig rabbitConfig;
+
+    @Autowired
+    public RabbitDestinationConfigurer(AmqpAdmin amqpAdmin, RabbitConfig rabbitConfig) {
+        this.amqpAdmin = amqpAdmin;
+        this.rabbitConfig = rabbitConfig;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

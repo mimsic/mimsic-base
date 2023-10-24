@@ -34,8 +34,7 @@ public class IgniteBeanConfigurer {
         igniteConfiguration.setTransactionConfiguration(transactionConfiguration());
         */
 
-        Ignite ignite = Ignition.start(igniteConfiguration);
-        return ignite;
+        return Ignition.start(igniteConfiguration);
     }
 
     /* Required for ignite transactions

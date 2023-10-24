@@ -2,12 +2,12 @@ package com.github.mimsic.base.web.security.authentication;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.mimsic.base.common.utility.ObjectUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Set;
 

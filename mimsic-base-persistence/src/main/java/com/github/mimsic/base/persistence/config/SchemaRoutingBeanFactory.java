@@ -1,7 +1,8 @@
 package com.github.mimsic.base.persistence.config;
 
 import com.github.mimsic.base.common.utility.StringDelimiter;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
@@ -28,7 +29,7 @@ public class SchemaRoutingBeanFactory {
     public DataSource schemaRoutingDataSource() {
 
         SchemaRoutingDataSource schemaRoutingDataSource = new SchemaRoutingDataSource();
-        schemaRoutingDataSource.setDefaultTargetDataSource(defaultDataSource());
+        schemaRoutingDataSource.setDefaultTargetDataSource(defaultTargetDataSource());
         schemaRoutingDataSource.setTargetDataSources(targetDataSources());
         return schemaRoutingDataSource;
     }
@@ -44,46 +45,59 @@ public class SchemaRoutingBeanFactory {
         return entityManagerFactoryBean;
     }
 
-    private DataSource defaultDataSource() {
-        DataSource dataSource = dataSource(persistenceConfig.defaultTargetDataSourceUnit());
-        try (Connection connection = dataSource.getConnection()) {
-            Statement statement = connection.createStatement();
-            createSequence(statement);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+    private DataSource defaultTargetDataSource() {
+        PersistenceConfig.DataSourceUnit dataSourceUnit = persistenceConfig.defaultDataSourceUnit();
+        DataSource dataSource = dataSource(dataSourceUnit);
+        if (dataSourceUnit.isCreateSequence()) {
+            try (Connection connection = dataSource.getConnection()) {
+                Statement statement = connection.createStatement();
+                createSequence(statement);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         return dataSource;
     }
 
     private Map<Object, Object> targetDataSources() {
 
-        Map<Object, Object> targetDataSources = new HashMap<>();
-
-        persistenceConfig.targetDataSourceUnits().forEach(targetDataSourceUnit -> {
-            DataSource dataSource = dataSource(targetDataSourceUnit);
+        Map<Object, Object> dataSources = new HashMap<>();
+        persistenceConfig.dataSourceUnits().forEach(dataSourceUnit -> {
+            DataSource dataSource = dataSource(dataSourceUnit);
             try (Connection connection = dataSource.getConnection()) {
                 Statement statement = connection.createStatement();
-                createSchema(statement, targetDataSourceUnit.getSchema(), targetDataSourceUnit.getUserName());
-                createSequence(statement);
-                String persistenceUnitName = String.format("%s-PersistenceUnit", targetDataSourceUnit.getSchema());
+                if (dataSourceUnit.isCreateSchema()) {
+                    createSchema(statement, dataSourceUnit.getSchema(), dataSourceUnit.getUsername());
+                }
+                if (dataSourceUnit.isCreateSequence()) {
+                    createSequence(statement);
+                }
+                String persistenceUnitName = String.format("%s-PersistenceUnit", dataSourceUnit.getSchema());
                 entityManagerFactoryBean(dataSource, persistenceUnitName).afterPropertiesSet();
-                targetDataSources.put(targetDataSourceUnit.getSchema(), dataSource);
+                dataSources.put(dataSourceUnit.getSchema(), dataSource);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
-        return targetDataSources;
+        return dataSources;
     }
 
-    private DriverManagerDataSource dataSource(PersistenceConfig.DataSourceUnit dataSourceUnit) {
+    /**
+     * @param dataSourceUnit
+     * @return
+     * @see <a href="https://github.com/brettwooldridge/HikariCP">HikariCP Documentation</a>
+     */
+    private HikariDataSource dataSource(PersistenceConfig.DataSourceUnit dataSourceUnit) {
 
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(dataSourceUnit.getDriverClassName());
-        dataSource.setUrl(dataSourceUnit.getUrl());
-        dataSource.setUsername(dataSourceUnit.getUserName());
-        dataSource.setPassword(dataSourceUnit.getPassword());
-        dataSource.setSchema(dataSourceUnit.getSchema());
-        return dataSource;
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(dataSourceUnit.getDriverClassName());
+        hikariConfig.setJdbcUrl(dataSourceUnit.getUrl());
+        hikariConfig.setUsername(dataSourceUnit.getUsername());
+        hikariConfig.setPassword(dataSourceUnit.getPassword());
+        hikariConfig.setSchema(dataSourceUnit.getSchema());
+        hikariConfig.setMaximumPoolSize(dataSourceUnit.getMaximumPoolSize());
+        hikariConfig.setMinimumIdle(dataSourceUnit.getMinimumIdle());
+        return new HikariDataSource(hikariConfig);
     }
 
     private void createSchema(Statement statement, String schema, String authorization) throws SQLException {

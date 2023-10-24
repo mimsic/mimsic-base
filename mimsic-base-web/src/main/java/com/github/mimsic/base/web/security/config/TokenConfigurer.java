@@ -29,11 +29,15 @@ public class TokenConfigurer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenConfigurer.class);
 
-    @Autowired
-    private ResourceLoader resourceLoader;
+    private final ResourceLoader resourceLoader;
+
+    private final SecurityConfig securityConfig;
 
     @Autowired
-    private SecurityConfig securityConfig;
+    public TokenConfigurer(ResourceLoader resourceLoader, SecurityConfig securityConfig) {
+        this.resourceLoader = resourceLoader;
+        this.securityConfig = securityConfig;
+    }
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {

@@ -6,7 +6,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.mimsic.base.common.json.deserializer.IsoTimestampDeserializer;
 import com.github.mimsic.base.common.json.serializer.IsoTimestampSerializer;
 import com.github.mimsic.base.persistence.converter.ZonedDateTimeAttributeConverter;
-import com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType;
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,14 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
@@ -44,7 +43,6 @@ import java.time.ZonedDateTime;
                 @Index(name = "order_exchange_id", columnList = "exchange_id")
         }
 )
-@TypeDef(name = "jsonb-node", typeClass = JsonNodeBinaryType.class)
 public class Order implements Serializable {
 
     @Id
@@ -67,7 +65,7 @@ public class Order implements Serializable {
     @JsonSerialize(using = IsoTimestampSerializer.class)
     private ZonedDateTime lastUpdate;
 
-    @Type(type = "jsonb-node")
+    @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb", nullable = false)
     private JsonNode data;
 }

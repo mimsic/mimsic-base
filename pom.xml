@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version>
+        <version>3.1.5</version>
     </parent>
 
     <modules>
@@ -21,12 +21,13 @@
         <module>mimsic-base-ignite</module>
         <module>mimsic-base-persistence</module>
         <module>mimsic-base-rabbit</module>
+        <module>mimsic-base-scheduler</module>
         <module>mimsic-base-web</module>
     </modules>
 
     <properties>
-        <ignite.version>2.10.0</ignite.version>
-        <java.version>1.8</java.version>
+        <ignite.version>2.15.0</ignite.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -64,32 +65,26 @@
 
             <dependency>
                 <groupId>com.github.mimsic.base</groupId>
+                <artifactId>mimsic-base-scheduler</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mimsic.base</groupId>
                 <artifactId>mimsic-base-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
-            <!--TODO: h2 version must not be inherited from spring boot parent (incompatibility with ignite)-->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.197</version>
-            </dependency>
-
+            <!--Replaced ignite-indexing-->
             <dependency>
                 <groupId>org.apache.ignite</groupId>
-                <artifactId>ignite-aws</artifactId>
+                <artifactId>ignite-calcite</artifactId>
                 <version>${ignite.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.ignite</groupId>
                 <artifactId>ignite-core</artifactId>
-                <version>${ignite.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.ignite</groupId>
-                <artifactId>ignite-indexing</artifactId>
                 <version>${ignite.version}</version>
             </dependency>
 
@@ -112,9 +107,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.vladmihalcea</groupId>
-                <artifactId>hibernate-types-52</artifactId>
-                <version>2.14.0</version>
+                <groupId>io.hypersistence</groupId>
+                <artifactId>hypersistence-utils-hibernate-60</artifactId>
+                <version>3.5.2</version>
             </dependency>
 
             <dependency>

@@ -23,7 +23,7 @@ public class IgniteConfig implements InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IgniteConfig.class);
 
-    private Network network;
+    private Networks networks;
     private String networkMode;
     private boolean clientMode;
     private boolean gridLogger;
@@ -39,7 +39,7 @@ public class IgniteConfig implements InitializingBean {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append('\n');
         stringBuilder.append("Ignite Config: {").append('\n');
-        stringBuilder.append(StringUtils.leftPad("", 3)).append("network: ").append(network).append('\n');
+        stringBuilder.append(StringUtils.leftPad("", 3)).append("network: ").append(networks).append('\n');
         stringBuilder.append(StringUtils.leftPad("", 3)).append("networkMode: ").append(networkMode).append('\n');
         stringBuilder.append(StringUtils.leftPad("", 3)).append("clientMode: ").append(clientMode).append('\n');
         stringBuilder.append(StringUtils.leftPad("", 3)).append("gridLogger: ").append(gridLogger).append('\n');
@@ -50,9 +50,8 @@ public class IgniteConfig implements InitializingBean {
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class Network {
+    public static class Networks {
 
-        private AwsS3 awsS3;
         private Multicast multicast;
 
         @Override
@@ -60,28 +59,7 @@ public class IgniteConfig implements InitializingBean {
 
             final StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append('\n');
-            stringBuilder.append(StringUtils.leftPad("", 6)).append("awsS3: ").append(awsS3).append('\n');
             stringBuilder.append(StringUtils.leftPad("", 6)).append("multicast: ").append(multicast);
-            return stringBuilder.toString();
-        }
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class AwsS3 {
-
-        private String bucketName;
-        private String accessKey;
-        private String secretKey;
-
-        @Override
-        public String toString() {
-
-            final StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append('\n');
-            stringBuilder.append(StringUtils.leftPad("", 9)).append("bucketName: ").append(bucketName).append('\n');
-            stringBuilder.append(StringUtils.leftPad("", 9)).append("accessKey: ").append(accessKey);
             return stringBuilder.toString();
         }
     }

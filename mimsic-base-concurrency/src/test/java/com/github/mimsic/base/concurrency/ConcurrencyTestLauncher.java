@@ -2,10 +2,8 @@ package com.github.mimsic.base.concurrency;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan(basePackages = {
+@SpringBootApplication(scanBasePackages = {
         "com.github.mimsic.base.concurrency"
 })
 public class ConcurrencyTestLauncher {

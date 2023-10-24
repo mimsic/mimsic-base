@@ -6,18 +6,16 @@ spring:
 
 ---
 spring:
-  profiles:
-    - ignite
+  config:
+    activate:
+      on-profile:
+        ignite
 
 ignite-config:
   client-mode: false
   grid-logger: true
   network-mode: multicast
-  network:
-    aws-s3:
-      bucket-name: bucket-name
-      access-key: aws
-      secret-key: awsSecret
+  networks:
     multicast:
       communication:
         local-port: 47100

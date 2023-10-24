@@ -1,16 +1,17 @@
-package com.github.mimsic.base.ignite;
+package com.github.mimsic.base.scheduler;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication(scanBasePackages = {
-        "com.github.mimsic.base.ignite"
+        "com.github.mimsic.base.concurrency",
+        "com.github.mimsic.base.scheduler"
 })
-public class IgniteTestLauncher {
+public class SchedulerTestLauncher {
 
     public static void main(String[] args) {
 
-        new SpringApplicationBuilder(IgniteTestLauncher.class)
+        new SpringApplicationBuilder(SchedulerTestLauncher.class)
                 .properties("spring.config.location:classpath:/")
                 .build().run(args);
     }

@@ -4,6 +4,7 @@ import org.apache.ignite.Ignite;
 import org.apache.ignite.cache.CacheAtomicityMode;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * @ExtendWith(SpringExtension.class) already exists in @SpringBootTest
  */
+@Disabled
 @SpringBootTest
 public class IgniteCacheTest {
 

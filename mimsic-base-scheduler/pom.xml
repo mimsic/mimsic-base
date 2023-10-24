@@ -3,25 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mimsic-base</artifactId>
         <groupId>com.github.mimsic.base</groupId>
+        <artifactId>mimsic-base</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mimsic-base-persistence</artifactId>
+    <artifactId>mimsic-base-scheduler</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.github.mimsic.base</groupId>
-            <artifactId>mimsic-base-common</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.mimsic.base</groupId>
+            <artifactId>mimsic-base-concurrency</artifactId>
         </dependency>
 
         <dependency>
@@ -31,22 +35,10 @@
         </dependency>
 
         <dependency>
-            <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-60</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
 </project>

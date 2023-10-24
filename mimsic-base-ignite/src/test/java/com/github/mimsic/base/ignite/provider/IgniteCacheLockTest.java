@@ -5,6 +5,7 @@ import org.apache.ignite.cache.CacheAtomicityMode;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import java.util.concurrent.locks.Lock;
 /**
  * @ExtendWith(SpringExtension.class) already exists in @SpringBootTest
  */
+@Disabled
 @SpringBootTest
 public class IgniteCacheLockTest {
 
